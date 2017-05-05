@@ -1,4 +1,6 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
+{-# LANGUAGE OverlappingInstances #-}
+
 module Servant.Auth.Swagger
   (
   -- | The purpose of this package is provide the instance for 'servant-auth'
@@ -61,6 +63,12 @@ instance (HasSecurity x, AllHasSecurity xs) => AllHasSecurity (x ': xs) where
     where
       px :: Proxy x
       px = Proxy
+      pxs :: Proxy xs
+      pxs = Proxy
+
+instance AllHasSecurity xs => AllHasSecurity (x ': xs) where
+  securities _ = securities pxs
+    where
       pxs :: Proxy xs
       pxs = Proxy
 
