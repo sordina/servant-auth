@@ -51,6 +51,7 @@ makeCsrfCookie cookieSettings = do
   return $ def
     { setCookieName = xsrfCookieName cookieSettings
     , setCookieValue = csrfValue
+    , setCookiePath = Just "/"
     , setCookieMaxAge = cookieMaxAge cookieSettings
     , setCookieExpires = cookieExpires cookieSettings
     , setCookieSecure = case cookieIsSecure cookieSettings of
